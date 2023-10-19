@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Server Stats</h2>
+    <div class="row">
+        {% for key, value in stats.items() %}
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">{{ key }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ value }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Command Execution Form -->
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.command.label }}
+            {{ form.command() }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+
+
+    <!-- Display command output, if any -->
+    {% if output %}
+    <b>Command Output</b>
+    <pre>{{ output }}</pre>
+    {% endif %}
+
+
+    <h2 class="mt-4">A Graphs</h2>
+    <canvas id="myChart" width="400" height="150"></canvas>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                datasets: [{
+                    label: 'Sample Data',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+{% endblock %}

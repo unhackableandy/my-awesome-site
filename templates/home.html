@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 30px;">
+    <!-- Headshot Image -->
+    <img src="{{ url_for('static', filename='headshot.png') }}" alt="Unhackable Andy's Picture"
+        style="border-radius: 75%; margin-bottom: 20px;">
+
+    <!-- Bio -->
+    <h2>Unhackable Andy</h2>
+    <p>
+        A legend in the tech world, "Unhackable Andy" has been a digital fortress since the day he wrote his first line
+        of code. In a world riddled with cyber threats, Andy stands tall and proud, having never once been hacked. Not
+        only does he sport an impeccable record of security, but he often quips, "Hackers have two kinds of targets: the
+        vulnerable and then there's me."
+    </p>
+
+    <p>
+        Throughout his illustrious career, Andy has been the mastermind behind some of the most iconic software
+        projects. The "Impenetrable Wallet", his blockchain-based project, remained uncracked even when a $1 million
+        bounty was placed on finding its vulnerabilities. His groundbreaking "FortKnoxOS" is hailed as the digital
+        equivalent of a nuclear bunker, warding off even the most advanced of cyber-attacks.
+    </p>
+
+    <p>
+        Andy is not just a tech genius; he's a beacon of hope in the cybersecurity community. His motto? "If it's coded
+        by Andy, it's unhackable." Period.
+    </p>
+
+
+    <p>
+        Follow him on GitHub!
+    </p>
+
+    <!-- Social Media Links -->
+    <div>
+        <a href="https://github.com/UnhackableAndy" target="_blank">
+            <img src="{{ url_for('static', filename='github.png') }}" alt="GitHub" width="32">
+        </a>
+    </div>
+</div>
+{% endblock %}
