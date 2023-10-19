@@ -18,12 +18,14 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "your_secret_key_here"
 app.config["SESSION_TYPE"] = "filesystem"
 
+
 class LoginForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
+
 
 class DashboardForm(FlaskForm):
     command = StringField(
@@ -33,20 +35,26 @@ class DashboardForm(FlaskForm):
     )
     submit = SubmitField("Submit")
 
+
 @app.route("/")
 def home():
     return render_template("home.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.username.data == ADMIN_USERNAME and form.password.data == ADMIN_PASSWORD:
+        if (
+            form.username.data == ADMIN_USERNAME
+            and form.password.data == ADMIN_PASSWORD
+        ):
             session["logged_in"] = True
             return redirect(url_for("dashboard"))
         else:
             flash("Login Unsuccessful. Please check username and password", "danger")
     return render_template("login.html", title="Login", form=form)
+
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
@@ -78,6 +86,13 @@ def dashboard():
             output = str(e)
 
     return render_template("dashboard.html", form=form, stats=stats, output=output)
+
+
+@app.route("/logout")
+def logout():
+    session.pop("logged_in", None)
+    return redirect(url_for("home"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
